@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 const Main = ({ navigation }) => {
-    console.log(navigation);
     return (
       <View style={styles.viewStyle}>
         <Text>Home Screen</Text>

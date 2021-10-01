@@ -5,7 +5,6 @@ import { CAMPSITES } from '../shared/campsites';
 import lakeImage from './images/react-lake.jpg'
 
 const RenderCampsite = ({campsite}) => {
-    console.log(campsite);
     if (campsite) {
         return (
             <Card>
@@ -25,9 +24,9 @@ const RenderCampsite = ({campsite}) => {
     return <View />
 }
 
-const CampsiteInfo = () => {
+const CampsiteInfo = ({ route, navigation }) => {
+    const campsiteId = route.params.id
     const [campsites, updateCampsites] = useState({CAMPSITES});
-    const campsiteId = 1;
     const campsite = campsites.CAMPSITES.filter(campsite => campsite.id === campsiteId)[0];
     return (
         <RenderCampsite campsite={campsite} />
