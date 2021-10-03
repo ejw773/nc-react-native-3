@@ -1,9 +1,34 @@
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
-import { Card } from 'react-native-elements';
+import { Text, View, ScrollView, FlatList } from 'react-native';
+import { Card, Icon } from 'react-native-elements';
 import { CAMPSITES } from '../shared/campsites';
+import { COMMENTS } from '../shared/comments';
 
-const RenderCampsite = ({campsite}) => {
+const RenderComments = ({comments}) => {
+    const renderCommentItem = ({item}) => {
+        return (
+            <View style={{margin: 10}}>
+                <Text style={{fontSize: 14}}>{item.text}</Text>
+                <Text style={{fontSize: 12}}>{item.rating}</Text>
+                <Text style={{fontSize: 12}}>{` ${item.author}, ${item.date}`}</Text>
+            </View>
+        )
+    }
+    return (
+        <Card>
+            <Card.Title>Comments</Card.Title>
+            <FlatList
+                data={comments}
+                renderItem={renderCommentItem}
+                keyExtractor={item => item.id.toString()}
+            />
+        </Card>
+    )
+}
+
+const RenderCampsite = (props) => {
+    const {campsite} = props;
+    console.log(props);
     if (campsite) {
         return (
             <Card>
@@ -14,6 +39,14 @@ const RenderCampsite = ({campsite}) => {
                 <Text style={{margin: 10}}>
                     {campsite.description}
                 </Text>
+                <Icon 
+                    name={props.favorite ? 'heart' : 'heart-o'}
+                    type='font-awesome'
+                    color='#f50'
+                    raisedreverse
+                    onPress={() => props.favorite ?
+                        console.log('Already set as a favorite') : props.markFavorite()}
+                />
             </Card>
         )
     }
@@ -21,11 +54,25 @@ const RenderCampsite = ({campsite}) => {
 }
 
 const CampsiteInfo = ({ route, navigation }) => {
+    const [favorite, setFavorite] = useState(false)
     const campsiteId = route.params.id
-    const [campsites, updateCampsites] = useState(CAMPSITES);
+    const [campsites, setCampsites] = useState(CAMPSITES);
+    const [comments, setComments] = useState(COMMENTS)
     const campsite = campsites.filter(campsite => campsite.id === campsiteId)[0];
+
+    const markFavorite = () => {
+        setFavorite(true);
+    }
+
     return (
-        <RenderCampsite campsite={campsite} />
+        <ScrollView>
+            <RenderCampsite 
+                campsite={campsite} 
+                favorite={favorite}
+                markFavorite={() => markFavorite()}
+            />
+            <RenderComments comments={comments} />
+        </ScrollView>
     )
 }
 
