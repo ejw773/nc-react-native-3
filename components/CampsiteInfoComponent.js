@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View } from 'react-native';
 import { Card } from 'react-native-elements';
 import { CAMPSITES } from '../shared/campsites';
-import lakeImage from './images/react-lake.jpg'
 
 const RenderCampsite = ({campsite}) => {
     if (campsite) {
@@ -16,9 +15,6 @@ const RenderCampsite = ({campsite}) => {
                     {campsite.description}
                 </Text>
             </Card>
-                // featuredTitle={campsite.name}
-                // image={Image}
-                // image={require('./images/react-lake.jpg')}
         )
     }
     return <View />
@@ -26,8 +22,8 @@ const RenderCampsite = ({campsite}) => {
 
 const CampsiteInfo = ({ route, navigation }) => {
     const campsiteId = route.params.id
-    const [campsites, updateCampsites] = useState({CAMPSITES});
-    const campsite = campsites.CAMPSITES.filter(campsite => campsite.id === campsiteId)[0];
+    const [campsites, updateCampsites] = useState(CAMPSITES);
+    const campsite = campsites.filter(campsite => campsite.id === campsiteId)[0];
     return (
         <RenderCampsite campsite={campsite} />
     )
