@@ -1,4 +1,6 @@
 import React from 'react';
+import { View, Platform, StyleSheet } from 'react-native';
+import { Icon } from 'react-native-elements';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -15,11 +17,76 @@ const Drawer = createDrawerNavigator();
 
 const drawerNavigator = () => {
   return (
-      <Drawer.Navigator>
-        <Drawer.Screen name="Home" component={Home} />
-        <Drawer.Screen name="Directory" component={Directory} />
-        <Drawer.Screen name="About" component={About} />
-        <Drawer.Screen name="Contact" component={Contact} />
+      <Drawer.Navigator
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: '#5637DD'
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            color: '#fff'
+          }
+        }}
+      >
+        <Drawer.Screen 
+          name="Home" 
+          component={Home} 
+          options={({ navigation }) => ({
+            title: 'Home',
+            headerLeft: () => (
+              <Icon 
+                name='home'
+                type='font-awesome'
+                iconStyle={styles.stackIcon}
+                onPress={() => navigation.toggleDrawer()}   
+              />
+            ),
+          })}
+        />
+        <Drawer.Screen
+          name="Directory" 
+          component={Directory}
+          options={({navigation}) => ({
+            title: 'Directory',
+            headerLeft: () => (
+              <Icon 
+                name='list'
+                type='font-awesome'
+                iconStyle={styles.stackIcon}
+                onPress={() => navigation.toggleDrawer()}
+              />
+            )
+          })}
+        />
+        <Drawer.Screen 
+          name="About" 
+          component={About} 
+          options={({navigation}) => ({
+            title: 'About',
+            headerLeft: () =>
+              <Icon 
+                name='info-circle'
+                type='font-awesome'
+                iconStyle={styles.stackIcon}
+                onPress={() => navigation.toggleDrawer()}
+              />
+          })}
+        />
+        <Drawer.Screen 
+          name="Contact" 
+          component={Contact} 
+          options={({navigation}) => ({
+            title: 'Contact',
+            headerLeft: () =>
+              <Icon 
+                name='address-card'
+                type='font-awesome'
+                iconStyle={styles.stackIcon}
+                onPress={() => navigation.toggleDrawer()}
+              />
+          })}
+        />
       </Drawer.Navigator>
   )
 }
@@ -45,11 +112,17 @@ const Main = () => {
             component={drawerNavigator}
             options={{ headerShown: false }}
           />
-          <Stack.Screen 
+          {/* <Stack.Screen 
             name='Home'
             component={Home}
             options={{
-              title: 'Home'
+              title: 'Home',
+              headerLeft: <Icon 
+                name='home'
+                type='font-awesome'
+                iconStyle={styles.stackIcon}
+                // onPress{() => NavigationContainer.toggleDrawer()}
+              />
             }}
           />
           <Stack.Screen 
@@ -72,7 +145,7 @@ const Main = () => {
             options={{
               title: 'Contact Us'
             }}
-          />
+          /> */}
           <Stack.Screen 
             name="Campsite" 
             component={CampsiteInfo} 
@@ -84,5 +157,13 @@ const Main = () => {
       </NavigationContainer>
     );
   }
+
+const styles = StyleSheet.create({
+  stackIcon: {
+    marginLeft: 10,
+    color: '#fff',
+    fontSize: 24
+  }
+})
 
 export default Main;
