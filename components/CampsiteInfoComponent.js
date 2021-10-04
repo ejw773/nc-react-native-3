@@ -28,7 +28,6 @@ const RenderComments = ({comments}) => {
 
 const RenderCampsite = (props) => {
     const {campsite} = props;
-    console.log(props);
     if (campsite) {
         return (
             <Card>

@@ -16,10 +16,8 @@ const Mission = () => {
 
 const About = () => {
     const [partners, setPartners] = useState(PARTNERS)
-    console.log(partners);
 
     const renderPartner = ({item}) => {
-        console.log(item.name);
         return (
             <ListItem>
                 <Avatar source={require('./images/bootstrap-logo.png')}/>
