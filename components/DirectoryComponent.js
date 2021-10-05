@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { FlatList } from 'react-native';
 import { ListItem, Avatar } from 'react-native-elements';
-import { CAMPSITES } from '../shared/campsites';
+// import { CAMPSITES } from '../shared/campsites';
+import { useGetCampsitesQuery } from '../redux/apiSlice';
 
 const Directory = ({ navigation }) => {
-    const [campsites, setCampsites] = useState(CAMPSITES)
-
+    // const [campsites, setCampsites] = useState(CAMPSITES)
+    const { data: campsites } = useGetCampsitesQuery();
     const renderDirectoryItem = ({item}) => {
         return (
             <ListItem 

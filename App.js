@@ -1,11 +1,13 @@
 import React from 'react';
 import Main from './components/MainComponent'
+import { store } from './redux/store';
+import { Provider } from 'react-redux';
 
 function App() {
   return (
-
-    <Main />
-
+    <Provider store={store}>
+      <Main />  
+    </Provider>
   );
 }
 
