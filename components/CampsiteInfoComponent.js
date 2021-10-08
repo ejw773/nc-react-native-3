@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Text, View, ScrollView, FlatList } from 'react-native';
 import { Card, Icon } from 'react-native-elements';
-// import { CAMPSITES } from '../shared/campsites';
-// import { COMMENTS } from '../shared/comments';
 import { useGetCommentsQuery } from '../redux/apiSlice';
 import { useGetCampsitesQuery } from '../redux/apiSlice';
 
@@ -57,12 +55,9 @@ const RenderCampsite = (props) => {
 const CampsiteInfo = ({ route, navigation }) => {
     const [favorite, setFavorite] = useState(false)
     const campsiteId = route.params.id
-    // const [campsites, setCampsites] = useState(CAMPSITES);
-    // const [comments, setComments] = useState(COMMENTS)
-    const { data: campsites } = useGetCampsitesQuery();
-    const { data: comments } = useGetCommentsQuery();
+    const { data: campsites, isLoading: campsitesLoadingStatus } = useGetCampsitesQuery();
+    const { data: comments, isLoading: commentsLoadingStatus } = useGetCommentsQuery();
     const campsite = campsites.filter(campsite => campsite.id === campsiteId)[0];
-
     const markFavorite = () => {
         setFavorite(true);
     }
@@ -74,7 +69,8 @@ const CampsiteInfo = ({ route, navigation }) => {
                 favorite={favorite}
                 markFavorite={() => markFavorite()}
             />
-            <RenderComments comments={comments} />
+            {commentsLoadingStatus && <Text>Comments Are Loading...</Text>}
+            <RenderComments comments={comments} status={commentsLoadingStatus} />
         </ScrollView>
     )
 }

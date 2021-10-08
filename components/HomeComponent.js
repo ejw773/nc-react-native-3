@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { Card } from 'react-native-elements';
-import { CAMPSITES } from '../shared/campsites';
-import { PROMOTIONS } from '../shared/promotions';
-import { PARTNERS } from '../shared/partners';
 import { useGetCampsitesQuery } from '../redux/apiSlice';
 import { useGetPromotionsQuery } from '../redux/apiSlice';
 import { useGetPartnersQuery } from '../redux/apiSlice';
@@ -26,10 +23,6 @@ const RenderItem = ({item}) => {
 }
 
 const Home = () => {
-    // const [campsites, setCampsites] = useState(CAMPSITES);
-    // const [promotions, setPromotions] = useState(PROMOTIONS);
-    // const [partners, setPartners] = useState(PARTNERS);
-
     const { data: campsites } = useGetCampsitesQuery();
     const { data: partners } = useGetPartnersQuery();
     const { data: promotions } = useGetPromotionsQuery();

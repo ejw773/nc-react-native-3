@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Text, StyleSheet, ScrollView, FlatList } from 'react-native';
 import { Card, ListItem, Avatar } from 'react-native-elements';
-// import { PARTNERS } from '../shared/partners';
 import { useGetPartnersQuery } from '../redux/apiSlice'
 
 const Mission = () => {
@@ -16,8 +15,6 @@ const Mission = () => {
 }
 
 const About = () => {
-    // const [partners, setPartners] = useState(PARTNERS)
-
     const { data: partners } = useGetPartnersQuery();
 
     const renderPartner = ({item}) => {
