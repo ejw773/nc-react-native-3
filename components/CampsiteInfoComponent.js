@@ -59,7 +59,6 @@ const CampsiteInfo = ({ route, navigation }) => {
     const { data: comments, isLoading: commentsLoadingStatus } = useGetCommentsQuery();
     const campsite = campsites.filter(campsite => campsite.id === campsiteId)[0];
     const markFavorite = () => {
-        console.log(favorite);
         setFavorite(!favorite);
     }
 

@@ -34,15 +34,12 @@ export default promotionsSlice.reducer
 
 export function fetchPromotions() {
     return async dispatch => {
-        console.log('yo')
       dispatch(promotionsLoading())
       try {
         const response = await fetch(`${baseUrl}promotions`)
         const data = await response.json()
-        console.log(data)
         dispatch(addPromotions(data))
       } catch (error) {
-          console.log('hello')
         dispatch(promotionsFailed())
       }
     }
