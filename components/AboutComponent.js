@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, StyleSheet, ScrollView, FlatList } from 'react-native';
 import { Card, ListItem, Avatar } from 'react-native-elements';
 import { useGetPartnersQuery } from '../redux/apiSlice'
+import Loading from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl'
 
 const Mission = () => {
@@ -16,7 +17,6 @@ const Mission = () => {
 }
 
 const About = () => {
-
     const { data: partners } = useGetPartnersQuery();
 
     const renderPartner = ({item}) => {
@@ -29,8 +29,8 @@ const About = () => {
                 </ListItem.Content>
             </ListItem>
         )
-    }
-
+    };
+    console.log(partners);
     return (
         <ScrollView>
             <Mission />

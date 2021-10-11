@@ -55,13 +55,9 @@ const RenderCampsite = (props) => {
 const CampsiteInfo = ({ route, navigation }) => {
     const [favorite, setFavorite] = useState(false)
     const campsiteId = route.params.id
-    const { data: campsites } = useGetCampsitesQuery();
-    const { data: comments } = useGetCommentsQuery();
+    const { data: campsites, isLoading: campsitesLoadingStatus } = useGetCampsitesQuery();
+    const { data: comments, isLoading: commentsLoadingStatus } = useGetCommentsQuery();
     const campsite = campsites.filter(campsite => campsite.id === campsiteId)[0];
-
-    console.log(campsites);
-    console.log(comments)
-
     const markFavorite = () => {
         console.log(favorite);
         setFavorite(!favorite);
@@ -74,7 +70,8 @@ const CampsiteInfo = ({ route, navigation }) => {
                 favorite={favorite}
                 markFavorite={() => markFavorite()}
             />
-            <RenderComments comments={comments} />
+            {commentsLoadingStatus && <Text>Comments Are Loading...</Text>}
+            <RenderComments comments={comments} status={commentsLoadingStatus} />
         </ScrollView>
     )
 }

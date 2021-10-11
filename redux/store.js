@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+
 import campsitesReducer from './campsitesSlice';
 import commentsReducer from './commentsSlice';
 import partnersReducer from './partnersSlice'

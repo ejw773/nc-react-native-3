@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Platform, StyleSheet, Text, ScrollView, Image } from 'react-native';
+import { View, StyleSheet, Text, Image } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { DrawerItem, DrawerContentScrollView, DrawerItemList, createDrawerNavigator } from '@react-navigation/drawer';
+import { DrawerContentScrollView, DrawerItemList, createDrawerNavigator } from '@react-navigation/drawer';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 import Directory from './DirectoryComponent'; 
@@ -171,40 +171,6 @@ const Main = () => {
               component={drawerNavigator}
               options={{ headerShown: false }}
             />
-            {/* <Stack.Screen 
-              name='Home'
-              component={Home}
-              options={{
-                title: 'Home',
-                headerLeft: <Icon 
-                  name='home'
-                  type='font-awesome'
-                  iconStyle={styles.stackIcon}
-                  // onPress{() => NavigationContainer.toggleDrawer()}
-                />
-              }}
-            />
-            <Stack.Screen 
-              name='Directory' 
-              component={Directory}
-              options={{
-                title: 'Directory Screen'
-              }}
-            />
-            <Stack.Screen 
-              name='About Us'
-              component={About}
-              options={{
-                title: 'About Us'
-              }}
-            />
-            <Stack.Screen 
-              name='Contact Us'
-              component={Contact}
-              options={{
-                title: 'Contact Us'
-              }}
-            /> */}
             <Stack.Screen 
               name="Campsite" 
               component={CampsiteInfo} 

@@ -1,8 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ActionSheetIOS } from 'react-native';
 
 const initialState = {
-    isLoading: true,
+    isLoading: null,
     errMess: null,
     campsites: []
 };
@@ -12,7 +11,7 @@ export const campsitesSlice = createSlice({
     initialState,
     reducers: {
         addCampsites: (state, action) => {
-            state.isLoading = false,
+            state.isLoading = null,
             state.errMess = null,
             state.campsites = action.payload
         },
