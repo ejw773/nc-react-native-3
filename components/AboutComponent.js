@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Text, StyleSheet, ScrollView, FlatList } from 'react-native';
 import { Card, ListItem, Avatar } from 'react-native-elements';
-// import { PARTNERS } from '../shared/partners';
 import { useGetPartnersQuery } from '../redux/apiSlice'
+import { baseUrl } from '../shared/baseUrl'
 
 const Mission = () => {
     return (
@@ -16,14 +16,13 @@ const Mission = () => {
 }
 
 const About = () => {
-    // const [partners, setPartners] = useState(PARTNERS)
 
     const { data: partners } = useGetPartnersQuery();
 
     const renderPartner = ({item}) => {
         return (
             <ListItem>
-                <Avatar source={require('./images/bootstrap-logo.png')}/>
+                <Avatar source={{uri: baseUrl + item.image}}/>
                 <ListItem.Content>
                     <ListItem.Title>{item.name}</ListItem.Title>
                     <ListItem.Subtitle>{item.description}</ListItem.Subtitle>

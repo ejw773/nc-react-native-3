@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Text, View, ScrollView, FlatList } from 'react-native';
 import { Card, Icon } from 'react-native-elements';
-// import { CAMPSITES } from '../shared/campsites';
-// import { COMMENTS } from '../shared/comments';
 import { useGetCommentsQuery } from '../redux/apiSlice';
 import { useGetCampsitesQuery } from '../redux/apiSlice';
+import { baseUrl } from '../shared/baseUrl';
 
 const RenderComments = ({comments}) => {
     const renderCommentItem = ({item}) => {
@@ -35,7 +34,7 @@ const RenderCampsite = (props) => {
             <Card>
                 <Card.Title>{campsite.name}</Card.Title>
                 <Card.Image 
-                    source={require('./images/react-lake.jpg')}
+                    source={{uri: baseUrl + campsite.image}}
                 />
                 <Text style={{margin: 10}}>
                     {campsite.description}
@@ -45,8 +44,7 @@ const RenderCampsite = (props) => {
                     type='font-awesome'
                     color='#f50'
                     raisedreverse
-                    onPress={() => props.favorite ?
-                        console.log('Already set as a favorite') : props.markFavorite()}
+                    onPress={() => props.markFavorite()}
                 />
             </Card>
         )
@@ -57,14 +55,16 @@ const RenderCampsite = (props) => {
 const CampsiteInfo = ({ route, navigation }) => {
     const [favorite, setFavorite] = useState(false)
     const campsiteId = route.params.id
-    // const [campsites, setCampsites] = useState(CAMPSITES);
-    // const [comments, setComments] = useState(COMMENTS)
     const { data: campsites } = useGetCampsitesQuery();
     const { data: comments } = useGetCommentsQuery();
     const campsite = campsites.filter(campsite => campsite.id === campsiteId)[0];
 
+    console.log(campsites);
+    console.log(comments)
+
     const markFavorite = () => {
-        setFavorite(true);
+        console.log(favorite);
+        setFavorite(!favorite);
     }
 
     return (
