@@ -12,7 +12,7 @@ export const partnersSlice = createSlice({
     initialState,
     reducers: {
         addPartners: (state, action) => {
-            state.isLoading = false
+            state.isLoading = null
             state.errMess = null
             state.partners = action.payload
         },

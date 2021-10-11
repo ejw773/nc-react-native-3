@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from  'react-redux';
+import { fetchCampsites } from '../redux/campsitesSlice';
+import { fetchPartners } from '../redux/partnersSlice';
+import { fetchPromotions } from '../redux/promotionsSlice';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { Card } from 'react-native-elements';
-import { useGetCampsitesQuery } from '../redux/apiSlice';
-import { useGetPromotionsQuery } from '../redux/apiSlice';
-import { useGetPartnersQuery } from '../redux/apiSlice';
 
 const RenderItem = ({item}) => {
     if (item) {
@@ -23,22 +24,28 @@ const RenderItem = ({item}) => {
 }
 
 const Home = () => {
-    const { data: campsites } = useGetCampsitesQuery();
-    const { data: partners } = useGetPartnersQuery();
-    const { data: promotions } = useGetPromotionsQuery();
-
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchCampsites())
+        dispatch(fetchPartners())
+        dispatch(fetchPromotions())
+    }, [dispatch])
+    const campsites = useSelector((state) => state.campsites);
+    const partners = useSelector((state) => state.partners);
+    const promotions = useSelector((state) => state.promotions)
+    
     if (campsites && partners && promotions) {
         
         return (
             <ScrollView>
                 <RenderItem
-                    item={campsites.filter(campsite => campsite.featured)[0]}
+                    item={campsites.campsites.filter(campsite => campsite.featured)[0]}
                 />
                 <RenderItem
-                    item={promotions.filter(promotion => promotion.featured)[0]}
+                    item={promotions.promotions.filter(promotion => promotion.featured)[0]}
                 />
                 <RenderItem
-                    item={partners.filter(partner => partner.featured)[0]}
+                    item={partners.partners.filter(partner => partner.featured)[0]}
                 />
             </ScrollView>
         )

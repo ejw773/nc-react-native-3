@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { baseUrl } from '../shared/baseUrl';
 
 const initialState = {
     isLoading: true,
@@ -10,10 +11,10 @@ export const promotionsSlice = createSlice({
     name: 'promotions',
     initialState,
     reducers: {
-        addPromotions: (state) => {
-            state.isLoading = false;
+        addPromotions: (state, action) => {
+            state.isLoading = null;
             state.errMess = null;
-            state.promotions = [];
+            state.promotions = action.payload;
         },
         promotionsLoading: (state) => {
             state.isLoading = true
@@ -30,3 +31,19 @@ export const promotionsSlice = createSlice({
 export const { addPromotions, promotionsLoading, promotionsFailed } = promotionsSlice.actions
 
 export default promotionsSlice.reducer
+
+export function fetchPromotions() {
+    return async dispatch => {
+        console.log('yo')
+      dispatch(promotionsLoading())
+      try {
+        const response = await fetch(`${baseUrl}promotions`)
+        const data = await response.json()
+        console.log(data)
+        dispatch(addPromotions(data))
+      } catch (error) {
+          console.log('hello')
+        dispatch(promotionsFailed())
+      }
+    }
+  }
