@@ -1,4 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { baseUrl } from '../shared/baseUrl';
+
+const fetchCampsites = createAsyncThunk(
+    'add_campsites',
+    async (thunkAPI) => {
+        const response = await baseUrl.fetchCampsites()
+        return response.data
+    }
+);
 
 const initialState = {
     isLoading: null,
@@ -24,6 +33,11 @@ export const campsitesSlice = createSlice({
             state.isLoading = false, 
             state.errMess = action.payload
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(fetchCampsites.fulfilled, (state, action) => {
+            state.campsites.push(action.payload);
+        })
     }
 })
 

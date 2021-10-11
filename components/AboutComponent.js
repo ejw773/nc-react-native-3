@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch} from 'react-redux';
+import { fetchPartners } from '../redux/partnersSlice';
 import { Text, StyleSheet, ScrollView, FlatList } from 'react-native';
 import { Card, ListItem, Avatar } from 'react-native-elements';
-import { useGetPartnersQuery } from '../redux/apiSlice'
 import Loading from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl'
 
@@ -17,8 +18,12 @@ const Mission = () => {
 }
 
 const About = () => {
-    const { data: partners } = useGetPartnersQuery();
-
+    const partners = useSelector((state) => state.partners);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchPartners())
+      }, [dispatch])
+    
     const renderPartner = ({item}) => {
         return (
             <ListItem>
@@ -30,14 +35,38 @@ const About = () => {
             </ListItem>
         )
     };
-    console.log(partners);
+
+    if (partners.isLoading) {
+        return (
+            <ScrollView>
+                <Mission />
+                <Card>
+                    <Card.Title>Community Partners</Card.Title>
+                    <Loading />
+                </Card>
+            </ScrollView>
+        )
+    };
+
+    if (partners.errMess) {
+        return (
+            <ScrollView>
+                <Mission />
+                <Card>
+                    <Card.Title>Community Partners</Card.Title>
+                    <Text>{partners.errMess}</Text>
+                </Card>
+            </ScrollView>
+        )
+    }
+
     return (
         <ScrollView>
             <Mission />
             <Card>
                 <Card.Title>Community Partners</Card.Title>
                 <FlatList 
-                    data={partners}
+                    data={partners.partners}
                     keyExtractor={item => item.id.toString()}
                     renderItem={renderPartner}
                 />
