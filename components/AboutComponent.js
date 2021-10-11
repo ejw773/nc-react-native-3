@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Text, StyleSheet, ScrollView, FlatList } from 'react-native';
 import { Card, ListItem, Avatar } from 'react-native-elements';
 import { useGetPartnersQuery } from '../redux/apiSlice'
+import Loading from './LoadingComponent';
 
 const Mission = () => {
     return (
@@ -27,8 +28,8 @@ const About = () => {
                 </ListItem.Content>
             </ListItem>
         )
-    }
-
+    };
+    console.log(partners);
     return (
         <ScrollView>
             <Mission />
