@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FlatList } from 'react-native';
 import { ListItem, Avatar } from 'react-native-elements';
 import { useGetCampsitesQuery } from '../redux/apiSlice';
+import { baseUrl } from '../shared/baseUrl';
 
 const Directory = ({ navigation }) => {
     const { data: campsites } = useGetCampsitesQuery();
@@ -12,7 +13,7 @@ const Directory = ({ navigation }) => {
                     id: item.id
                 })}
             >
-                <Avatar source={require('./images/react-lake.jpg')} />
+                <Avatar source={{ uri: baseUrl + item.image}} />
                 <ListItem.Content>
                     <ListItem.Title>{item.name}</ListItem.Title>
                     <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
