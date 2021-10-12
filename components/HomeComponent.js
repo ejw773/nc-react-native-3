@@ -1,23 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from  'react-redux';
+import { fetchCampsites } from '../redux/campsitesSlice';
+import { fetchPartners } from '../redux/partnersSlice';
+import { fetchPromotions } from '../redux/promotionsSlice';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { Card } from 'react-native-elements';
-import { CAMPSITES } from '../shared/campsites';
-import { PROMOTIONS } from '../shared/promotions';
-import { PARTNERS } from '../shared/partners';
-import { useGetCampsitesQuery } from '../redux/apiSlice';
-import { useGetPromotionsQuery } from '../redux/apiSlice';
-import { useGetPartnersQuery } from '../redux/apiSlice';
+import Loading from './LoadingComponent';
 
-const RenderItem = ({item}) => {
-    if (item) {
+const RenderItem = (props) => {
+    if (props.status === 'loading') {
+        return <Loading />
+    }
+    if (props.errMess) {
+        return (
+            <View>
+                <Text>{item.errMess}</Text>
+            </View>
+        )
+    }
+    if (props.item) {
+        console.log(props.item);
         return (
             <Card>
-                <Card.Title>{item.name}</Card.Title>
+                <Card.Title>{props.item.name}</Card.Title>
                 <Card.Image 
                     source={require('./images/react-lake.jpg')}
                 />
                 <Text style={styles.textStyle}>
-                    {item.description}
+                    {props.item.description}
                 </Text>
             </Card>
         )
@@ -26,34 +36,35 @@ const RenderItem = ({item}) => {
 }
 
 const Home = () => {
-    // const [campsites, setCampsites] = useState(CAMPSITES);
-    // const [promotions, setPromotions] = useState(PROMOTIONS);
-    // const [partners, setPartners] = useState(PARTNERS);
+    const campsites = useSelector((state) => state.campsites)
+    const partners = useSelector((state) => state.partners)
+    const promotions = useSelector((state) => state.promotions)
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchCampsites())
+        dispatch(fetchPartners())
+        dispatch(fetchPromotions())
+    }, [dispatch])
 
-    const { data: campsites } = useGetCampsitesQuery();
-    const { data: partners } = useGetPartnersQuery();
-    const { data: promotions } = useGetPromotionsQuery();
-
-    if (campsites && partners && promotions) {
-        
-        return (
-            <ScrollView>
-                <RenderItem
-                    item={campsites.filter(campsite => campsite.featured)[0]}
-                />
-                <RenderItem
-                    item={promotions.filter(promotion => promotion.featured)[0]}
-                />
-                <RenderItem
-                    item={partners.filter(partner => partner.featured)[0]}
-                />
-            </ScrollView>
-        )
-    } else {
-        return (
-            <Text>Loading...</Text>
-        )
-    }
+    return (
+        <ScrollView>
+            <RenderItem
+                item={campsites.campsites.filter(campsite => campsite.featured)[0]}
+                status={campsites.status}
+                errMess={campsites.errMess}
+            />
+            <RenderItem
+                item={promotions.promotions.filter(promotion => promotion.featured)[0]}
+                status={promotions.status}
+                errMess={promotions.errMess}
+            />
+            <RenderItem
+                item={partners.partners.filter(partner => partner.featured)[0]}
+                status={partners.status}
+                errMess={partners.errMess}
+            />
+        </ScrollView>
+    )
 }
 
 const styles = StyleSheet.create({
