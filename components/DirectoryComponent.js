@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCampsites } from '../redux/campsitesSlice';
-import { FlatList } from 'react-native';
+import { View, FlatList, Text } from 'react-native';
 import { ListItem, Avatar } from 'react-native-elements';
 import { baseUrl } from '../shared/baseUrl';
 import Loading from './LoadingComponent';
@@ -36,7 +36,9 @@ const Directory = ({ navigation }) => {
 
     if (campsites.errMess) {
         return (
-            <Text>Error: {campsites.errMess}</Text>
+            <View>
+                <Text>Error: {campsites.errMess}</Text>
+            </View>
         )
     }
 

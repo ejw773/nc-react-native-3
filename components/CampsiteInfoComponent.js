@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchCampsites } from '../redux/campsitesSlice';
 import { fetchComments } from '../redux/commentsSlice'
 import { Text, View, ScrollView, FlatList } from 'react-native';
 import { Card, Icon } from 'react-native-elements';
@@ -78,7 +77,6 @@ const CampsiteInfo = ({ route, navigation }) => {
     const comments = useSelector((state) => state.comments);
     const dispatch = useDispatch();
     useEffect(() => {
-        //dispatch(fetchCampsites())
         dispatch(fetchComments())
     }, [dispatch])
 
