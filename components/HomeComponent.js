@@ -7,26 +7,27 @@ import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { Card } from 'react-native-elements';
 import Loading from './LoadingComponent';
 
-const RenderItem = ({item}) => {
-    if (item.status === 'loading') {
+const RenderItem = (props) => {
+    if (props.status === 'loading') {
         return <Loading />
     }
-    if (item.errMess) {
+    if (props.errMess) {
         return (
             <View>
                 <Text>{item.errMess}</Text>
             </View>
         )
     }
-    if (item) {
+    if (props.item) {
+        console.log(props.item);
         return (
             <Card>
-                <Card.Title>{item.name}</Card.Title>
+                <Card.Title>{props.item.name}</Card.Title>
                 <Card.Image 
                     source={require('./images/react-lake.jpg')}
                 />
                 <Text style={styles.textStyle}>
-                    {item.description}
+                    {props.item.description}
                 </Text>
             </Card>
         )
