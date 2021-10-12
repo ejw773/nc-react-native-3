@@ -22,7 +22,7 @@ export const partnersSlice = createSlice({
             state.partners = []
         },
         partnersFailed: (state, action) => {
-            state.isLoading = 'failed'
+            state.status = 'failed'
             state.errMess = action.payload
         }
     }

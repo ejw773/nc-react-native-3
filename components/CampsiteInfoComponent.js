@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCampsites } from '../redux/campsitesSlice';
+import { fetchComments } from '../redux/commentsSlice'
 import { Text, View, ScrollView, FlatList } from 'react-native';
 import { Card, Icon } from 'react-native-elements';
 import { baseUrl } from '../shared/baseUrl';
 import Loading from './LoadingComponent';
 
-const RenderComments = ({comments}) => {
+const RenderComments = ({comments, status, errMess}) => {
     const renderCommentItem = ({item}) => {
         return (
             <View style={{margin: 10}}>
@@ -16,16 +17,33 @@ const RenderComments = ({comments}) => {
             </View>
         )
     }
-    return (
-        <Card>
-            <Card.Title>Comments</Card.Title>
-            <FlatList
-                data={comments}
-                renderItem={renderCommentItem}
-                keyExtractor={item => item.id.toString()}
-            />
-        </Card>
-    )
+
+    if (status === 'loading') {
+        return (
+            <Card>
+                <Card.Title>Comments</Card.Title>
+                <Loading />
+            </Card>
+        )
+    }
+
+    if (status === 'failed') {
+        return <Text>{errMess}</Text>
+    }
+
+    if (comments) {
+        return (
+            <Card>
+                <Card.Title>Comments</Card.Title>
+                <FlatList
+                    data={comments}
+                    renderItem={renderCommentItem}
+                    keyExtractor={item => item.id.toString()}
+                />
+            </Card>
+        )
+    }
+
 }
 
 const RenderCampsite = (props) => {
@@ -57,9 +75,11 @@ const CampsiteInfo = ({ route, navigation }) => {
     const [favorite, setFavorite] = useState(false)
     const campsiteId = route.params.id
     const campsites = useSelector((state) => state.campsites);
+    const comments = useSelector((state) => state.comments);
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(fetchCampsites())
+        //dispatch(fetchCampsites())
+        dispatch(fetchComments())
     }, [dispatch])
 
     if (campsites.status === 'loading') {
@@ -80,8 +100,7 @@ const CampsiteInfo = ({ route, navigation }) => {
                     favorite={favorite}
                     markFavorite={() => markFavorite()}
                 />
-                {/* {commentsLoadingStatus && <Text>Comments Are Loading...</Text>}
-                <RenderComments comments={comments} status={commentsLoadingStatus} /> */}
+                <RenderComments status={comments.status} comments={comments.comments} errMess={comments.errMess}/>
             </ScrollView>
         )
     }
