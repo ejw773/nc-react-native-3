@@ -36,7 +36,7 @@ const About = () => {
         )
     };
 
-    if (partners.isLoading) {
+    if (partners.status === 'loading') {
         return (
             <ScrollView>
                 <Mission />

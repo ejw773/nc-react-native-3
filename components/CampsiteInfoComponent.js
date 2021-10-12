@@ -62,22 +62,29 @@ const CampsiteInfo = ({ route, navigation }) => {
         dispatch(fetchCampsites())
     }, [dispatch])
 
-    const campsite = campsites.filter(campsite => campsite.id === campsiteId)[0];
-    const markFavorite = () => {
-        setFavorite(!favorite);
+    if (campsites.status === 'loading') {
+        return <Loading />
     }
 
-    return (
-        <ScrollView>
-            <RenderCampsite 
-                campsite={campsite} 
-                favorite={favorite}
-                markFavorite={() => markFavorite()}
-            />
-            {commentsLoadingStatus && <Text>Comments Are Loading...</Text>}
-            <RenderComments comments={comments} status={commentsLoadingStatus} />
-        </ScrollView>
-    )
+    if (campsites.campsites) {
+
+        const campsite = campsites.campsites.filter(campsite => campsite.id === campsiteId)[0];
+        const markFavorite = () => {
+            setFavorite(!favorite);
+        }
+
+        return (
+            <ScrollView>
+                <RenderCampsite 
+                    campsite={campsite} 
+                    favorite={favorite}
+                    markFavorite={() => markFavorite()}
+                />
+                {/* {commentsLoadingStatus && <Text>Comments Are Loading...</Text>}
+                <RenderComments comments={comments} status={commentsLoadingStatus} /> */}
+            </ScrollView>
+        )
+    }
 }
 
 export default CampsiteInfo;
