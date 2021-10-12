@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { baseUrl } from '../shared/baseUrl';
 
 const initialState = {
-    isLoading: null,
+    status: 'loading',
     errMess: null,
     campsites: []
 };
@@ -12,17 +12,17 @@ export const campsitesSlice = createSlice({
     initialState,
     reducers: {
         addCampsites: (state, action) => {
-            state.isLoading = null,
+            state.status = 'idle',
             state.errMess = null,
             state.campsites = action.payload
         },
         campsitesLoading: (state) => {
-            state.isLoading = true,
+            state.status = 'loading',
             state.errMess = null,
             state.campsites = []
         },
         campsitesFailed: (state, action) => {
-            state.isLoading = false, 
+            state.status = 'failed', 
             state.errMess = action.payload
         }
     },

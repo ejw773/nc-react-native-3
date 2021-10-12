@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { baseUrl } from '../shared/baseUrl';
 
 const initialState = {
-    isLoading: true,
+    status: 'loading',
     errMess: null,
     promotions: []
 }
@@ -12,17 +12,17 @@ export const promotionsSlice = createSlice({
     initialState,
     reducers: {
         addPromotions: (state, action) => {
-            state.isLoading = null;
-            state.errMess = null;
-            state.promotions = action.payload;
+            state.status = 'idle'
+            state.errMess = null
+            state.promotions = action.payload
         },
         promotionsLoading: (state) => {
-            state.isLoading = true
+            state.status = 'loading'
             state.errMess = null
             state.promotions = []
         },
         promotionsFailed: (state, action) => {
-            state.isLoading = false
+            state.status = 'failed'
             state.errMess = action.payload
         }
     }

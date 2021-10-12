@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { baseUrl } from '../shared/baseUrl';
 
 const initialState = {
-    isLoading: true,
+    status: 'loading',
     errMess: null,
     partners: []
 };
@@ -12,17 +12,17 @@ export const partnersSlice = createSlice({
     initialState,
     reducers: {
         addPartners: (state, action) => {
-            state.isLoading = null
+            state.status = 'idle'
             state.errMess = null
             state.partners = action.payload
         },
         partnersLoading: (state) => {
-            state.isLoading = true
+            state.status = 'loading'
             state.errMess = null
             state.partners = []
         },
         partnersFailed: (state, action) => {
-            state.isLoading = false
+            state.isLoading = 'failed'
             state.errMess = action.payload
         }
     }

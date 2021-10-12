@@ -8,8 +8,7 @@ import { Card } from 'react-native-elements';
 import Loading from './LoadingComponent';
 
 const RenderItem = ({item}) => {
-    console.log(item);
-    if (item.isLoading !== null) {
+    if (item.status === 'loading') {
         return <Loading />
     }
     if (item.errMess) {
@@ -36,8 +35,8 @@ const RenderItem = ({item}) => {
 }
 
 const Home = () => {
-    const campsites = useSelector((state) => state.campsites);
-    const partners = useSelector((state) => state.partners);
+    const campsites = useSelector((state) => state.campsites)
+    const partners = useSelector((state) => state.partners)
     const promotions = useSelector((state) => state.promotions)
     const dispatch = useDispatch();
     useEffect(() => {
@@ -49,18 +48,18 @@ const Home = () => {
     return (
         <ScrollView>
             <RenderItem
-                item={ campsites.campsites.length >= 1 ? campsites.campsites.filter(campsite => campsite.featured)[0] : null }
-                isLoading={campsites.isLoading}
+                item={campsites.campsites.filter(campsite => campsite.featured)[0]}
+                status={campsites.status}
                 errMess={campsites.errMess}
             />
             <RenderItem
-                item={ promotions.promotions.length >= 1 ? promotions.promotions.filter(promotion => promotion.featured)[0] : null }
-                isLoading={promotions.isLoading}
+                item={promotions.promotions.filter(promotion => promotion.featured)[0]}
+                status={promotions.status}
                 errMess={promotions.errMess}
             />
             <RenderItem
-                item={ partners.partners.length >= 1 ? partners.partners.filter(partner => partner.featured)[0] : null }
-                isLoading={partners.isLoading}
+                item={partners.partners.filter(partner => partner.featured)[0]}
+                status={partners.status}
                 errMess={partners.errMess}
             />
         </ScrollView>
