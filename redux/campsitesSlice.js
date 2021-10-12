@@ -22,6 +22,7 @@ export const campsitesSlice = createSlice({
             state.campsites = []
         },
         campsitesFailed: (state, action) => {
+            console.log(action);
             state.status = 'failed', 
             state.errMess = action.payload
         }
@@ -45,7 +46,7 @@ export function fetchCampsites() {
         const data = await response.json()
           dispatch(addCampsites(data))
       } catch (error) {
-        dispatch(campsitesFailed())
+        dispatch(campsitesFailed(error.message))
       }
     }
   }

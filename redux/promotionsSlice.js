@@ -40,7 +40,7 @@ export function fetchPromotions() {
         const data = await response.json()
         dispatch(addPromotions(data))
       } catch (error) {
-        dispatch(promotionsFailed())
+        dispatch(promotionsFailed(error.message))
       }
     }
   }

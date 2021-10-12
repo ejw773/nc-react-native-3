@@ -14,12 +14,11 @@ const RenderItem = (props) => {
     if (props.errMess) {
         return (
             <View>
-                <Text>{item.errMess}</Text>
+                <Text>{props.itemType}: {props.errMess}</Text>
             </View>
         )
     }
     if (props.item) {
-        console.log(props.item);
         return (
             <Card>
                 <Card.Title>{props.item.name}</Card.Title>
@@ -52,16 +51,19 @@ const Home = () => {
                 item={campsites.campsites.filter(campsite => campsite.featured)[0]}
                 status={campsites.status}
                 errMess={campsites.errMess}
+                itemType='Campsites'
             />
             <RenderItem
                 item={promotions.promotions.filter(promotion => promotion.featured)[0]}
                 status={promotions.status}
                 errMess={promotions.errMess}
+                itemType='Promotions'
             />
             <RenderItem
                 item={partners.partners.filter(partner => partner.featured)[0]}
                 status={partners.status}
                 errMess={partners.errMess}
+                itemType='Partners'
             />
         </ScrollView>
     )

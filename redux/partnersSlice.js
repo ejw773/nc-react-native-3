@@ -41,7 +41,7 @@ export function fetchPartners() {
   
         dispatch(addPartners(data))
       } catch (error) {
-        dispatch(partnersFailed())
+        dispatch(partnersFailed(error.message))
       }
     }
   }

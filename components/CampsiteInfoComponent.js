@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchCampsites } from '../redux/campsitesSlice';
 import { Text, View, ScrollView, FlatList } from 'react-native';
 import { Card, Icon } from 'react-native-elements';
-import { useGetCommentsQuery } from '../redux/apiSlice';
-import { useGetCampsitesQuery } from '../redux/apiSlice';
 import { baseUrl } from '../shared/baseUrl';
+import Loading from './LoadingComponent';
 
 const RenderComments = ({comments}) => {
     const renderCommentItem = ({item}) => {
@@ -55,8 +56,12 @@ const RenderCampsite = (props) => {
 const CampsiteInfo = ({ route, navigation }) => {
     const [favorite, setFavorite] = useState(false)
     const campsiteId = route.params.id
-    const { data: campsites, isLoading: campsitesLoadingStatus } = useGetCampsitesQuery();
-    const { data: comments, isLoading: commentsLoadingStatus } = useGetCommentsQuery();
+    const campsites = useSelector((state) => state.campsites);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchCampsites())
+    }, [dispatch])
+
     const campsite = campsites.filter(campsite => campsite.id === campsiteId)[0];
     const markFavorite = () => {
         setFavorite(!favorite);

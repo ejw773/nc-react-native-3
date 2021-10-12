@@ -4,6 +4,7 @@ import { fetchCampsites } from '../redux/campsitesSlice';
 import { FlatList } from 'react-native';
 import { ListItem, Avatar } from 'react-native-elements';
 import { baseUrl } from '../shared/baseUrl';
+import Loading from './LoadingComponent';
 
 const Directory = ({ navigation }) => {
     const campsites = useSelector((state) => state.campsites);
@@ -26,13 +27,28 @@ const Directory = ({ navigation }) => {
             </ListItem>
         )
     }
-    return (
-        <FlatList 
-            data={campsites.campsites}
-            renderItem={renderDirectoryItem}
-            keyExtractor={item => item.id.toString()}
-        />
-    )
+
+    if (campsites.status === 'loading') {
+        return (
+            <Loading />
+        )
+    };
+
+    if (campsites.errMess) {
+        return (
+            <Text>Error: {campsites.errMess}</Text>
+        )
+    }
+
+    if (campsites.campsites) {
+        return (
+            <FlatList 
+                data={campsites.campsites}
+                renderItem={renderDirectoryItem}
+                keyExtractor={item => item.id.toString()}
+            />
+        )
+    }
 }
 
 export default Directory;
