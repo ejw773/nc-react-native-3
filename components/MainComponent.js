@@ -8,10 +8,11 @@ import { DrawerContentScrollView, DrawerItemList, createDrawerNavigator } from '
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 import Directory from './DirectoryComponent'; 
-import CampsiteInfo from './CampsiteInfoComponent'
+import CampsiteInfo from './CampsiteInfoComponent';
 import Home from './HomeComponent';
-import About from './AboutComponent'
-import Contact from './ContactComponent'
+import About from './AboutComponent';
+import Contact from './ContactComponent';
+import Reservation from './ReservationComponent';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -94,6 +95,28 @@ const drawerNavigator = () => {
             headerLeft: () => (
               <Icon 
                 name='list'
+                type='font-awesome'
+                iconStyle={styles.stackIcon}
+                onPress={() => navigation.toggleDrawer()}
+              />
+            )
+          })}
+        />        
+        <Drawer.Screen
+          name="Reservation" 
+          component={Reservation}
+          options={({navigation}) => ({
+            title: 'Reservation',
+            drawerIcon: () => (
+              <Icon 
+                name='tree'
+                type='font-awesome'
+                size={24}
+              />
+            ),
+            headerLeft: () => (
+              <Icon 
+                name='tree'
                 type='font-awesome'
                 iconStyle={styles.stackIcon}
                 onPress={() => navigation.toggleDrawer()}
