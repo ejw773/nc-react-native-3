@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchComments } from '../redux/commentsSlice'
 import { postFavorite } from '../redux/favoritesSlice';
-import { Text, View, ScrollView, FlatList } from 'react-native';
+import { Text, View, ScrollView, FlatList, Modal, Button, StyleSheet } from 'react-native';
 import { Card, Icon } from 'react-native-elements';
 import { baseUrl } from '../shared/baseUrl';
 import Loading from './LoadingComponent';
@@ -58,13 +58,22 @@ const RenderCampsite = (props) => {
                 <Text style={{margin: 10}}>
                     {campsite.description}
                 </Text>
-                <Icon 
-                    name={props.favorite ? 'heart' : 'heart-o'}
-                    type='font-awesome'
-                    color='#f50'
-                    raisedreverse
-                    onPress={() => props.markFavorite()}
-                />
+                <View style={styles.cardRow}>
+                    <Icon 
+                        name={props.favorite ? 'heart' : 'heart-o'}
+                        type='font-awesome'
+                        color='#f50'
+                        raisedreverse
+                        onPress={() => props.markFavorite()}
+                    />
+                    <Icon 
+                        name='pencil'
+                        type='font-awesome'
+                        color='#5637DD'
+                        raisedreverse
+                        onPress={() => props.onShowModal()}
+                    />
+                </View>
             </Card>
         )
     }
@@ -72,12 +81,18 @@ const RenderCampsite = (props) => {
 }
 
 const CampsiteInfo = ({ route, navigation }) => {
-    // const [favorite, setFavorite] = useState(false)
+    const [showModal, setShowModal] = useState(false);
     const campsiteId = route.params.id
     const campsites = useSelector((state) => state.campsites);
     const comments = useSelector((state) => state.comments);
     const favorites = useSelector((state) => state.favorites);
     const dispatch = useDispatch();
+
+    const toggleModal = () =>  {
+        console.log(showModal);
+        setShowModal(!showModal);
+    }
+
     useEffect(() => {
         dispatch(fetchComments())
     }, [dispatch])
@@ -87,7 +102,6 @@ const CampsiteInfo = ({ route, navigation }) => {
     }
 
     if (campsites.campsites) {
-
         const campsite = campsites.campsites.filter(campsite => campsite.id === campsiteId)[0];
         const theseComments = comments.comments.filter(comment => comment.campsiteId === campsiteId);
         const markFavorite = () => {
@@ -100,11 +114,42 @@ const CampsiteInfo = ({ route, navigation }) => {
                     campsite={campsite} 
                     favorite={favorites.favorites.includes(campsiteId)}
                     markFavorite={() => markFavorite(campsiteId)}
+                    onShowModal={() => toggleModal()}
                 />
                 <RenderComments status={comments.status} comments={theseComments} errMess={comments.errMess}/>
+                <Modal
+                    animationType={'slide'}
+                    transparent={false}
+                    visible={showModal}
+                    onRequestClose={() => toggleModal()}
+                >
+                    <View style={styles.modal}>
+                        <View style={{margin: 10}}>
+                            <Button 
+                                onPress={() => toggleModal()}
+                                color='#808080'
+                                title='Cancel'
+                            />
+                        </View>
+                    </View>
+                </Modal>
             </ScrollView>
         )
     }
 }
+
+const styles = StyleSheet.create({
+    cardRow: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1,
+        flexDirection: 'row',
+        margin: 20,
+    },
+    modal: {
+        justifyContent: 'center',
+        margin: 20
+    }
+})
 
 export default CampsiteInfo;
