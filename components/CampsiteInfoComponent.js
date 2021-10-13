@@ -89,6 +89,7 @@ const CampsiteInfo = ({ route, navigation }) => {
     if (campsites.campsites) {
 
         const campsite = campsites.campsites.filter(campsite => campsite.id === campsiteId)[0];
+        const theseComments = comments.comments.filter(comment => comment.campsiteId === campsiteId);
         const markFavorite = () => {
             dispatch(postFavorite(campsiteId))
         }
@@ -100,7 +101,7 @@ const CampsiteInfo = ({ route, navigation }) => {
                     favorite={favorites.favorites.includes(campsiteId)}
                     markFavorite={() => markFavorite(campsiteId)}
                 />
-                <RenderComments status={comments.status} comments={comments.comments} errMess={comments.errMess}/>
+                <RenderComments status={comments.status} comments={theseComments} errMess={comments.errMess}/>
             </ScrollView>
         )
     }
