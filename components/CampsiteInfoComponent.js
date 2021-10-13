@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchComments } from '../redux/commentsSlice'
+import { postFavorite } from '../redux/favoritesSlice';
 import { Text, View, ScrollView, FlatList } from 'react-native';
 import { Card, Icon } from 'react-native-elements';
 import { baseUrl } from '../shared/baseUrl';
@@ -71,10 +72,11 @@ const RenderCampsite = (props) => {
 }
 
 const CampsiteInfo = ({ route, navigation }) => {
-    const [favorite, setFavorite] = useState(false)
+    // const [favorite, setFavorite] = useState(false)
     const campsiteId = route.params.id
     const campsites = useSelector((state) => state.campsites);
     const comments = useSelector((state) => state.comments);
+    const favorites = useSelector((state) => state.favorites);
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(fetchComments())
@@ -88,15 +90,15 @@ const CampsiteInfo = ({ route, navigation }) => {
 
         const campsite = campsites.campsites.filter(campsite => campsite.id === campsiteId)[0];
         const markFavorite = () => {
-            setFavorite(!favorite);
+            dispatch(postFavorite(campsiteId))
         }
 
         return (
             <ScrollView>
                 <RenderCampsite 
                     campsite={campsite} 
-                    favorite={favorite}
-                    markFavorite={() => markFavorite()}
+                    favorite={favorites.favorites.includes(campsiteId)}
+                    markFavorite={() => markFavorite(campsiteId)}
                 />
                 <RenderComments status={comments.status} comments={comments.comments} errMess={comments.errMess}/>
             </ScrollView>
