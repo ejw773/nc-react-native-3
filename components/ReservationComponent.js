@@ -1,34 +1,30 @@
 import React, { useState } from 'react';
 import { Text, View, ScrollView, StyleSheet, Switch, Button } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-// import { Picker } from '@react-native-picker/picker';
+import { Picker } from '@react-native-picker/picker';
 
 const Reservation = () => {
-    const [formData, setFormData] = useState({
-        campers: 1,
-        hikeIn: false,
-        date: new Date(),
-        showCalendar: false
-    });
+    const [campers, setCampers] = useState(1);
+    const [hikeIn, setHikeIn] = useState(false);
+    const [resDate, setResDate] = useState(new Date());
+    const [showCalendar, setShowCalendar] = useState(false);
 
     const handleReservation = () => {
-        console.log(JSON.stringify(formData));
-        setFormData({
-            campers: 1,
-            hikeIn: false,
-            date: new Date(),
-            showCalendar: false
-        })
+        console.log(`campers: ${campers}, hikeIn: ${hikeIn}, date: ${resDate}, showCalendar: ${showCalendar}`);
+        setCampers(1);
+        setHikeIn(false);
+        setResDate(new Date());
+        setShowCalendar(false);
     }
 
     return (
         <ScrollView>
             <View style={styles.formRow}>
                 <Text style={styles.formLabel}>Number of Campers</Text>
-                {/* <Picker
+                <Picker
                     style={styles.formItem}
-                    selectedValue={formData.campers}
-                    onValueChange={itemValue => setFormData({campers: itemValue})}
+                    selectedValue={campers}
+                    onValueChange={itemValue => setCampers(itemValue)}
                 >
                     <Picker.Item label='1' value='1' />
                     <Picker.Item label='2' value='2' />
@@ -36,38 +32,29 @@ const Reservation = () => {
                     <Picker.Item label='4' value='4' />
                     <Picker.Item label='5' value='5' />
                     <Picker.Item label='6' value='6' />
-                </Picker> */}
+                </Picker>
             </View>
             <View style={styles.formRow}>
                 <Text style={styles.formLabel}>Hike-In?</Text>
                 <Switch 
                     style={styles.formItem}
-                    value={formData.hikeIn}
+                    value={hikeIn}
                     trackColor={{true: '#5637DD', false: null}}
-                    onValueChange={value => setFormData({hikeIn: value})}
+                    onValueChange={value => setHikeIn(value)}
                 />
             </View>
             <View style={styles.formRow}>
                 <Text style={styles.formLabel}>Date</Text>
-                <Button 
-                    onPress={() => setFormData({showCalendar: true})}
-                    title='set date'
-                    // title={formData.date.toLocaleDateString('en-US')}
-                    color='#5637DD'
-                    accessibilityLabel='Tap me to select a reservation date'
-                />
-            </View>
-            {formData.showCalendar && (
                 <DateTimePicker 
-                    value={formData.date}
+                    value={resDate}
                     mode={'date'}
                     display='default'
                     onChange={(event, selectedDate) => {
-                        selectedDate && setFormData({date: selectedDate, showCalendar: false})
+                        selectedDate && setResDate(selectedDate) && setShowCalendar(false)
                     }}
                     style={styles.formItem}
                 />
-            )}
+            </View>
             <View style={styles.formRow}>
                 <Button 
                     onPress={() => handleReservation()}

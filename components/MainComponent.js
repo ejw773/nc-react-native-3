@@ -106,7 +106,7 @@ const drawerNavigator = () => {
           name="Reservation" 
           component={Reservation}
           options={({navigation}) => ({
-            title: 'Reservation',
+            title: 'Reserve Campsite',
             drawerIcon: () => (
               <Icon 
                 name='tree'
