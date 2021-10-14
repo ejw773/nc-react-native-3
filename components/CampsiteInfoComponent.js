@@ -152,13 +152,14 @@ const CampsiteInfo = ({ route, navigation }) => {
                             leftIcon={{ type: 'font-awesome', name: 'user-o'}}
                             leftIconContainerStyle={{paddingRight: 10}}
                             onChangeText={(text) => setAuthor(text)}
-                            value={''}
+                            value={author}
                         />
                         <Input 
                             placeholder={'Comment'}
                             leftIcon={{ type: 'font-awesome', name: 'comment-o'}}
                             leftIconContainerStyle={{paddingRight: 10}}
                             onChangeText={(text) => setInputText(text)}
+                            value={inputText}
                         />
                         <View style={{margin: 10}}>
                             <Button 
