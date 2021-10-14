@@ -33,7 +33,7 @@ const Favorites = () => {
     }
     return (
         <FlatList 
-            data={campsites.campsites.filter(campsite => favorites.includes(campsite.id))}
+            data={campsites.campsites.filter(campsite => favorites.favorites.includes(campsite.id))}
             renderItem={renderFavoriteItem}
             keyExtractor={item => item.id.toString()}
         />
