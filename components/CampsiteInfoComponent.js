@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchComments } from '../redux/commentsSlice'
+import { postComment } from '../redux/commentsSlice';
 import { postFavorite } from '../redux/favoritesSlice';
 import { Text, View, ScrollView, FlatList, Modal, Button, StyleSheet } from 'react-native';
 import { Card, Icon, Rating, Input } from 'react-native-elements';
@@ -104,7 +105,7 @@ const CampsiteInfo = ({ route, navigation }) => {
     }
 
     const handleComment = (campsiteId) => {
-        console.log(`showModal: ${showModal}, rating: ${rating}, author: ${author}, inputText: ${inputText}`);
+        postComment(campsiteId, rating, author, inputText)
         toggleModal;
     }
 

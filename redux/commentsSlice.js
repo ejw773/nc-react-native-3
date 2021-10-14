@@ -11,6 +11,10 @@ export const commentsSlice = createSlice({
     name: 'comments',
     initialState,
     reducers: {
+        addComment: (state, action) => {
+            console.log('comment being added')
+            const newComment = {campsiteId, rating, author, text}
+        },
         addComments: (state, action) => {
             state.status = 'idle'
             state.errMess = null
@@ -28,13 +32,12 @@ export const commentsSlice = createSlice({
     }
 })
 
-export const { addComments, commentsLoading, commentsFailed } = commentsSlice.actions
+export const { addComment, addComments, commentsLoading, commentsFailed } = commentsSlice.actions
 export default commentsSlice.reducer
 
 export function fetchComments() {
     return async dispatch => {
         dispatch(commentsLoading())
-
         try {
             const response = await fetch(`${baseUrl}comments`)
             const data = await response.json()
@@ -42,5 +45,12 @@ export function fetchComments() {
         } catch (error) {
             dispatch(commentsFailed(error.message))
         }
+    }
+}
+
+export function postComment(campsiteId, rating, author, text) {
+    console.log('comment being posted')
+    return async dispatch => {
+        dispatch(addComment())
     }
 }
