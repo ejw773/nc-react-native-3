@@ -49,7 +49,7 @@ export function fetchComments() {
 }
 
 export function postComment(campsiteId, rating, author, text) {
-    console.log('comment being posted')
+    console.log(`campsiteID: ${campsiteId}, rating: ${rating}, author: ${author}, text: ${text}`)
     return async dispatch => {
         dispatch(addComment())
     }
