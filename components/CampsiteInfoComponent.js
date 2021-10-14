@@ -13,6 +13,12 @@ const RenderComments = ({comments, status, errMess}) => {
             <View style={{margin: 10}}>
                 <Text style={{fontSize: 14}}>{item.text}</Text>
                 <Text style={{fontSize: 12}}>{item.rating}</Text>
+                <Rating 
+                    readonly
+                    startingValue={item.rating}
+                    imageSize={10}
+                    style={{alignItems: 'flex-start', paddingVertical: '5%'}}
+                />
                 <Text style={{fontSize: 12}}>{` ${item.author}, ${item.date}`}</Text>
             </View>
         )
@@ -163,9 +169,20 @@ const CampsiteInfo = ({ route, navigation }) => {
                         />
                         <View style={{margin: 10}}>
                             <Button 
-                                onPress={() => toggleModal()}
-                                color='#808080'
+                                title='Submit'
+                                onPress={() => {
+                                    handleComment();
+                                    resetForm();
+                                }}
+                                color='#5637DD'
+                            />
+                            <Button 
                                 title='Cancel'
+                                onPress={() => {
+                                    toggleModal();
+                                    resetForm();
+                                }}
+                                color='#808080'
                             />
                         </View>
                     </View>
