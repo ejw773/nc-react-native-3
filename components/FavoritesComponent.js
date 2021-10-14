@@ -8,7 +8,7 @@ import { baseUrl } from'../shared/baseUrl';
 const Favorites = () => {
     const campsites = useSelector(state => state.campsites);
     const favorites = useSelector(state => state.favorites);
-    const { navigate } = props.navigation;
+    //const { navigate } = props.navigation;
     const renderFavoriteItem = ({item}) => {
         return (
             <ListItem>
