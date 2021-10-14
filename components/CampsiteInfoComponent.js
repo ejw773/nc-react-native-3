@@ -12,7 +12,6 @@ const RenderComments = ({comments, status, errMess}) => {
         return (
             <View style={{margin: 10}}>
                 <Text style={{fontSize: 14}}>{item.text}</Text>
-                <Text style={{fontSize: 12}}>{item.rating}</Text>
                 <Rating 
                     readonly
                     startingValue={item.rating}
@@ -154,7 +153,7 @@ const CampsiteInfo = ({ route, navigation }) => {
                             style={{paddingVertical: 10}}
                         />
                         <Input 
-                            placeholder={'Author Input'}
+                            placeholder={'Author'}
                             leftIcon={{ type: 'font-awesome', name: 'user-o'}}
                             leftIconContainerStyle={{paddingRight: 10}}
                             onChangeText={(text) => setAuthor(text)}
