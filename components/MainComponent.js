@@ -13,6 +13,7 @@ import Home from './HomeComponent';
 import About from './AboutComponent';
 import Contact from './ContactComponent';
 import Reservation from './ReservationComponent';
+import Favorites from './FavoritesComponent';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -95,6 +96,28 @@ const drawerNavigator = () => {
             headerLeft: () => (
               <Icon 
                 name='list'
+                type='font-awesome'
+                iconStyle={styles.stackIcon}
+                onPress={() => navigation.toggleDrawer()}
+              />
+            )
+          })}
+        />        
+        <Drawer.Screen
+          name="Favorites" 
+          component={Favorites}
+          options={({navigation}) => ({
+            title: 'Favorites',
+            drawerIcon: () => (
+              <Icon 
+                name='heart'
+                type='font-awesome'
+                size={24}
+              />
+            ),
+            headerLeft: () => (
+              <Icon 
+                name='heart'
                 type='font-awesome'
                 iconStyle={styles.stackIcon}
                 onPress={() => navigation.toggleDrawer()}
