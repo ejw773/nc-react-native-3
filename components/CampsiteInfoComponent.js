@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchComments } from '../redux/commentsSlice'
 import { postFavorite } from '../redux/favoritesSlice';
 import { Text, View, ScrollView, FlatList, Modal, Button, StyleSheet } from 'react-native';
-import { Card, Icon } from 'react-native-elements';
+import { Card, Icon, Rating, Input } from 'react-native-elements';
 import { baseUrl } from '../shared/baseUrl';
 import Loading from './LoadingComponent';
 
@@ -63,14 +63,16 @@ const RenderCampsite = (props) => {
                         name={props.favorite ? 'heart' : 'heart-o'}
                         type='font-awesome'
                         color='#f50'
-                        raisedreverse
+                        raised
+                        reverse
                         onPress={() => props.markFavorite()}
                     />
                     <Icon 
                         name='pencil'
                         type='font-awesome'
                         color='#5637DD'
-                        raisedreverse
+                        raised
+                        reverse
                         onPress={() => props.onShowModal()}
                     />
                 </View>
@@ -82,6 +84,9 @@ const RenderCampsite = (props) => {
 
 const CampsiteInfo = ({ route, navigation }) => {
     const [showModal, setShowModal] = useState(false);
+    const [rating, setRating] = useState(5);
+    const [author, setAuthor] = useState('');
+    const [inputText, setInputText] = useState('');
     const campsiteId = route.params.id
     const campsites = useSelector((state) => state.campsites);
     const comments = useSelector((state) => state.comments);
@@ -91,6 +96,17 @@ const CampsiteInfo = ({ route, navigation }) => {
     const toggleModal = () =>  {
         console.log(showModal);
         setShowModal(!showModal);
+    }
+
+    const handleComment = (campsiteId) => {
+        console.log(`showModal: ${showModal}, rating: ${rating}, author: ${author}, inputText: ${inputText}`);
+        toggleModal;
+    }
+
+    const resetForm = () => {
+        setRating(5);
+        setAuthor('');
+        setInputText('');
     }
 
     useEffect(() => {
@@ -124,6 +140,26 @@ const CampsiteInfo = ({ route, navigation }) => {
                     onRequestClose={() => toggleModal()}
                 >
                     <View style={styles.modal}>
+                        <Rating 
+                            showRating
+                            startingValue={rating}
+                            imageSize={40}
+                            onFinishRating={rating => setRating(rating)}
+                            style={{paddingVertical: 10}}
+                        />
+                        <Input 
+                            placeholder={'Author Input'}
+                            leftIcon={{ type: 'font-awesome', name: 'user-o'}}
+                            leftIconContainerStyle={{paddingRight: 10}}
+                            onChangeText={(text) => setAuthor(text)}
+                            value={''}
+                        />
+                        <Input 
+                            placeholder={'Comment'}
+                            leftIcon={{ type: 'font-awesome', name: 'comment-o'}}
+                            leftIconContainerStyle={{paddingRight: 10}}
+                            onChangeText={(text) => setInputText(text)}
+                        />
                         <View style={{margin: 10}}>
                             <Button 
                                 onPress={() => toggleModal()}
