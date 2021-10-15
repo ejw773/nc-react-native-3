@@ -1,23 +1,42 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { FlatList, View, Text} from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import { FlatList, View, Text, StyleSheet } from 'react-native';
 import { ListItem, Avatar } from 'react-native-elements';
+import { SwipeRow } from 'react-native-swipe-list-view';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { deleteFavorite } from '../redux/favoritesSlice';
 import Loading from './LoadingComponent';
 import { baseUrl } from'../shared/baseUrl';
 
 const Favorites = () => {
+    const dispatch = useDispatch();
     const campsites = useSelector(state => state.campsites);
     const favorites = useSelector(state => state.favorites);
     //const { navigate } = props.navigation;
     const renderFavoriteItem = ({item}) => {
         return (
-            <ListItem>
-                <Avatar source={{ uri: baseUrl + item.image}} />
-                <ListItem.Content>
-                    <ListItem.Title>{item.name}</ListItem.Title>
-                    <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
-                </ListItem.Content>
-            </ListItem>
+            <SwipeRow
+                rightOpenValue={-100}
+                // style={styles.swipeRow}
+            >
+                <View style={styles.deleteView}>
+                    <TouchableOpacity
+                        style={styles.deleteTouchable}
+                        onPress={() => dispatch(deleteFavorite(item.id))}
+                    >
+                        <Text style={styles.deleteText}>Delete</Text>
+                    </TouchableOpacity>
+                </View>
+                <View>
+                    <ListItem>
+                        <Avatar source={{ uri: baseUrl + item.image}} />
+                        <ListItem.Content>
+                            <ListItem.Title>{item.name}</ListItem.Title>
+                            <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
+                        </ListItem.Content>
+                    </ListItem>
+                </View>
+            </SwipeRow>
         )
     }
 
@@ -44,5 +63,26 @@ const Favorites = () => {
 Favorites.navigationOptions = {
     title: 'My Favorites'
 }
+
+const styles = StyleSheet.create({
+    deleteView: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        flex: 1
+    },
+    deleteTouchable: {
+        backgroundColor: 'red',
+        height: '100%',
+        justifyContent: 'center'
+    },
+    deleteText: {
+        color: 'white',
+        fontWeight: '700',
+        textAlign: 'center',
+        fontSize: 16,
+        width: 100
+    }
+})
 
 export default Favorites;
