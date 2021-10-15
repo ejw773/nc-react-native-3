@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from  'react-redux';
 import { fetchCampsites } from '../redux/campsitesSlice';
 import { fetchPartners } from '../redux/partnersSlice';
 import { fetchPromotions } from '../redux/promotionsSlice';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, Animated, ScrollView, StyleSheet } from 'react-native';
 import { Card } from 'react-native-elements';
 import Loading from './LoadingComponent';
 
@@ -35,16 +35,28 @@ const RenderItem = (props) => {
 }
 
 const Home = () => {
+    const [scaleValue, setScaleValue] = useState(new Animated.Value(0))
     const campsites = useSelector((state) => state.campsites)
     const partners = useSelector((state) => state.partners)
     const promotions = useSelector((state) => state.promotions)
     const dispatch = useDispatch();
+    const animate = () => {
+        Animated.timing(
+            setScaleValue({
+                toValue: 1,
+                duration: 1500,
+                useNativeDriver: true
+            })
+        ).start();
+    }
+
     useEffect(() => {
         dispatch(fetchCampsites())
         dispatch(fetchPartners())
         dispatch(fetchPromotions())
+        //animate()
     }, [dispatch])
-
+    
     return (
         <ScrollView>
             <RenderItem
@@ -68,6 +80,10 @@ const Home = () => {
         </ScrollView>
     )
 }
+
+// Home.navigationOptions = {
+//     title: 'Home'
+// }
 
 const styles = StyleSheet.create({
     textStyle: {
