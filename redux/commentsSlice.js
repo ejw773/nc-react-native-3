@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { baseUrl } from '../shared/baseUrl';
 
 const initialState = {
@@ -12,8 +12,7 @@ export const commentsSlice = createSlice({
     initialState,
     reducers: {
         addComment: (state, action) => {
-            console.log('comment being added')
-            const newComment = {campsiteId, rating, author, text}
+            state.comments = [...state.comments, action.payload]            
         },
         addComments: (state, action) => {
             state.status = 'idle'
@@ -48,9 +47,20 @@ export function fetchComments() {
     }
 }
 
-export function postComment(campsiteId, rating, author, text) {
-    console.log(`campsiteID: ${campsiteId}, rating: ${rating}, author: ${author}, text: ${text}`)
+export function postComment(campsiteId, rating, author, text, randomNum) {
+    const newComment = {
+        campsiteId,
+        rating,
+        author,
+        text,
+        id: randomNum
+    };
+    newComment.date = new Date().toISOString();
     return async dispatch => {
-        dispatch(addComment())
+        try {
+            dispatch(addComment(newComment))
+        } catch (error) {
+
+        }
     }
 }

@@ -104,28 +104,6 @@ const drawerNavigator = () => {
           })}
         />        
         <Drawer.Screen
-          name="Favorites" 
-          component={Favorites}
-          options={({navigation}) => ({
-            title: 'Favorites',
-            drawerIcon: () => (
-              <Icon 
-                name='heart'
-                type='font-awesome'
-                size={24}
-              />
-            ),
-            headerLeft: () => (
-              <Icon 
-                name='heart'
-                type='font-awesome'
-                iconStyle={styles.stackIcon}
-                onPress={() => navigation.toggleDrawer()}
-              />
-            )
-          })}
-        />        
-        <Drawer.Screen
           name="Reservation" 
           component={Reservation}
           options={({navigation}) => ({
@@ -147,6 +125,28 @@ const drawerNavigator = () => {
             )
           })}
         />
+        <Drawer.Screen
+          name="Favorites" 
+          component={Favorites}
+          options={({navigation}) => ({
+            title: 'Favorites',
+            drawerIcon: () => (
+              <Icon 
+                name='heart'
+                type='font-awesome'
+                size={24}
+              />
+            ),
+            headerLeft: () => (
+              <Icon 
+                name='heart'
+                type='font-awesome'
+                iconStyle={styles.stackIcon}
+                onPress={() => navigation.toggleDrawer()}
+              />
+            )
+          })}
+        />        
         <Drawer.Screen 
           name="About" 
           component={About} 

@@ -100,13 +100,13 @@ const CampsiteInfo = ({ route, navigation }) => {
     const dispatch = useDispatch();
 
     const toggleModal = () =>  {
-        console.log(showModal);
         setShowModal(!showModal);
     }
 
     const handleComment = (campsiteId) => {
-        postComment(campsiteId, rating, author, inputText)
-        toggleModal;
+        let randomNum = comments.comments.length;
+        dispatch(postComment(campsiteId, rating, author, inputText, randomNum))
+        toggleModal();
     }
 
     const resetForm = () => {
@@ -171,7 +171,7 @@ const CampsiteInfo = ({ route, navigation }) => {
                             <Button 
                                 title='Submit'
                                 onPress={() => {
-                                    handleComment();
+                                    handleComment(campsiteId);
                                     resetForm();
                                 }}
                                 color='#5637DD'
