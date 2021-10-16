@@ -7,6 +7,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { deleteFavorite } from '../redux/favoritesSlice';
 import Loading from './LoadingComponent';
 import { baseUrl } from'../shared/baseUrl';
+import * as Animatable from 'react-native-animatable';
 
 const Favorites = () => {
     const dispatch = useDispatch();
@@ -69,11 +70,13 @@ const Favorites = () => {
         );
     }
     return (
-        <FlatList 
-            data={campsites.campsites.filter(campsite => favorites.favorites.includes(campsite.id))}
-            renderItem={renderFavoriteItem}
-            keyExtractor={item => item.id.toString()}
-        />
+        <Animatable.View animation='fadeInRightBig' duration={2000}>
+            <FlatList 
+                data={campsites.campsites.filter(campsite => favorites.favorites.includes(campsite.id))}
+                renderItem={renderFavoriteItem}
+                keyExtractor={item => item.id.toString()}
+            />
+        </Animatable.View>
     )
 
 }

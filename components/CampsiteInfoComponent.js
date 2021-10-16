@@ -7,6 +7,7 @@ import { Text, View, ScrollView, FlatList, Modal, Button, StyleSheet } from 'rea
 import { Card, Icon, Rating, Input } from 'react-native-elements';
 import { baseUrl } from '../shared/baseUrl';
 import Loading from './LoadingComponent';
+import * as Animatable from 'react-native-animatable';
 
 const RenderComments = ({comments, status, errMess}) => {
     const renderCommentItem = ({item}) => {
@@ -39,14 +40,16 @@ const RenderComments = ({comments, status, errMess}) => {
 
     if (comments) {
         return (
-            <Card>
-                <Card.Title>Comments</Card.Title>
-                <FlatList
-                    data={comments}
-                    renderItem={renderCommentItem}
-                    keyExtractor={item => item.id.toString()}
-                />
-            </Card>
+            <Animatable.View animation='fadeInUp' duration={2000} delay={1000}>
+                <Card>
+                    <Card.Title>Comments</Card.Title>
+                    <FlatList
+                        data={comments}
+                        renderItem={renderCommentItem}
+                        keyExtractor={item => item.id.toString()}
+                    />
+                </Card>
+            </Animatable.View>
         )
     }
 
@@ -56,33 +59,35 @@ const RenderCampsite = (props) => {
     const {campsite} = props;
     if (campsite) {
         return (
-            <Card>
-                <Card.Title>{campsite.name}</Card.Title>
-                <Card.Image 
-                    source={{uri: baseUrl + campsite.image}}
-                />
-                <Text style={{margin: 10}}>
-                    {campsite.description}
-                </Text>
-                <View style={styles.cardRow}>
-                    <Icon 
-                        name={props.favorite ? 'heart' : 'heart-o'}
-                        type='font-awesome'
-                        color='#f50'
-                        raised
-                        reverse
-                        onPress={() => props.markFavorite()}
+            <Animatable.View animation='fadeInDown' duration={2000} delay={1000}>
+                <Card>
+                    <Card.Title>{campsite.name}</Card.Title>
+                    <Card.Image 
+                        source={{uri: baseUrl + campsite.image}}
                     />
-                    <Icon 
-                        name='pencil'
-                        type='font-awesome'
-                        color='#5637DD'
-                        raised
-                        reverse
-                        onPress={() => props.onShowModal()}
-                    />
-                </View>
-            </Card>
+                    <Text style={{margin: 10}}>
+                        {campsite.description}
+                    </Text>
+                    <View style={styles.cardRow}>
+                        <Icon 
+                            name={props.favorite ? 'heart' : 'heart-o'}
+                            type='font-awesome'
+                            color='#f50'
+                            raised
+                            reverse
+                            onPress={() => props.markFavorite()}
+                        />
+                        <Icon 
+                            name='pencil'
+                            type='font-awesome'
+                            color='#5637DD'
+                            raised
+                            reverse
+                            onPress={() => props.onShowModal()}
+                        />
+                    </View>
+                </Card>
+            </Animatable.View>
         )
     }
     return <View />
