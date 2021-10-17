@@ -5,7 +5,7 @@ import { fetchPartners } from '../redux/partnersSlice';
 import { fetchPromotions } from '../redux/promotionsSlice';
 import { View, Text, Animated, ScrollView, StyleSheet } from 'react-native';
 import { Card } from 'react-native-elements';
-import Loading from './LoadingComponent';
+import Loading from '../components/LoadingComponent';
 
 const RenderItem = (props) => {
     if (props.status === 'loading') {
@@ -23,7 +23,7 @@ const RenderItem = (props) => {
             <Card>
                 <Card.Title>{props.item.name}</Card.Title>
                 <Card.Image 
-                    source={require('./images/react-lake.jpg')}
+                    source={require('../images/react-lake.jpg')}
                 />
                 <Text style={styles.textStyle}>
                     {props.item.description}

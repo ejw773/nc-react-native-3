@@ -3,7 +3,7 @@ import { useSelector, useDispatch} from 'react-redux';
 import { fetchPartners } from '../redux/partnersSlice';
 import { Text, StyleSheet, ScrollView, FlatList } from 'react-native';
 import { Card, ListItem, Avatar } from 'react-native-elements';
-import Loading from './LoadingComponent';
+import Loading from '../components/LoadingComponent';
 import { baseUrl } from '../shared/baseUrl'
 import * as Animatable from 'react-native-animatable';
 

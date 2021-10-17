@@ -4,7 +4,7 @@ import { fetchCampsites } from '../redux/campsitesSlice';
 import { View, FlatList, Text } from 'react-native';
 import { Tile } from 'react-native-elements';
 import { baseUrl } from '../shared/baseUrl';
-import Loading from './LoadingComponent';
+import Loading from '../components/LoadingComponent';
 import * as Animatable from 'react-native-animatable';
 
 const Directory = ({ navigation }) => {

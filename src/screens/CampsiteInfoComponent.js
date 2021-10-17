@@ -6,7 +6,7 @@ import { postFavorite } from '../redux/favoritesSlice';
 import { Text, View, ScrollView, FlatList, Modal, Button, StyleSheet, PanResponder, Alert } from 'react-native';
 import { Card, Icon, Rating, Input } from 'react-native-elements';
 import { baseUrl } from '../shared/baseUrl';
-import Loading from './LoadingComponent';
+import Loading from '../components/LoadingComponent';
 import * as Animatable from 'react-native-animatable';
 
 const RenderComments = ({comments, status, errMess}) => {

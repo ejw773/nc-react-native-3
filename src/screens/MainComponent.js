@@ -27,7 +27,7 @@ const CustomDrawerContent = (props) => {
       >
         <View style={styles.drawerHeader}>
           <View style={{flex: 1}}>
-            <Image source={require('./images/logo.png')}/>
+            <Image source={require('../images/logo.png')}/>
           </View>
           <View style={{flex: 2}}>
             <Text style={styles.drawerHeaderText}>NuCamp</Text>
