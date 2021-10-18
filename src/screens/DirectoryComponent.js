@@ -25,12 +25,6 @@ const Directory = ({ navigation }) => {
                     featured
                     caption={item.description}
                 />
-                    {/* <Avatar source={{ uri: baseUrl + item.image}} /> */}
-                    {/* <ListItem.Content>
-                        <ListItem.Title>{item.name}</ListItem.Title>
-                        <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
-                    </ListItem.Content>
-                </Tile> */}
             </Animatable.View>
         )
     }
