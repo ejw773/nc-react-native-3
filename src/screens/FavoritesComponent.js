@@ -5,7 +5,7 @@ import { ListItem, Avatar } from 'react-native-elements';
 import { SwipeRow } from 'react-native-swipe-list-view';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { deleteFavorite } from '../redux/favoritesSlice';
-import Loading from './LoadingComponent';
+import Loading from '../components/LoadingComponent';
 import { baseUrl } from'../shared/baseUrl';
 import * as Animatable from 'react-native-animatable';
 

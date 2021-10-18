@@ -4,7 +4,7 @@ import { fetchCampsites } from '../redux/campsitesSlice';
 import { View, FlatList, Text } from 'react-native';
 import { Tile } from 'react-native-elements';
 import { baseUrl } from '../shared/baseUrl';
-import Loading from './LoadingComponent';
+import Loading from '../components/LoadingComponent';
 import * as Animatable from 'react-native-animatable';
 
 const Directory = ({ navigation }) => {
@@ -25,12 +25,6 @@ const Directory = ({ navigation }) => {
                     featured
                     caption={item.description}
                 />
-                    {/* <Avatar source={{ uri: baseUrl + item.image}} /> */}
-                    {/* <ListItem.Content>
-                        <ListItem.Title>{item.name}</ListItem.Title>
-                        <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
-                    </ListItem.Content>
-                </Tile> */}
             </Animatable.View>
         )
     }
