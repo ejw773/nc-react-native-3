@@ -1,5 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { baseUrl } from '../shared/baseUrl';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     status: 'loading',
@@ -8,7 +7,7 @@ const initialState = {
 }
 
 export const favoritesSlice = createSlice({
-    name: 'favorite',
+    name: 'favorites',
     initialState,
     reducers: {
         postFavorite: (state, action) => {

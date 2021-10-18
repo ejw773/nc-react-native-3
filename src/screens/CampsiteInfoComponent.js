@@ -55,7 +55,7 @@ const CampsiteInfo = ({ route, navigation }) => {
             <ScrollView>
                 <RenderCampsite 
                     campsite={campsite} 
-                    favorite={favorites.includes(campsiteId)}
+                    favorite={favorites.favorites.includes(campsiteId)}
                     markFavorite={() => markFavorite(campsiteId)}
                     onShowModal={() => toggleModal()}
                 />

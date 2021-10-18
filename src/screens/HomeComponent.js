@@ -40,7 +40,6 @@ const Home = () => {
     }, [dispatch])
     
     useEffect(() => {
-        console.log('fade in')
         fadeIn();
     })
 
