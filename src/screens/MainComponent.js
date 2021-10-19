@@ -14,6 +14,7 @@ import About from './AboutComponent';
 import Contact from './ContactComponent';
 import Reservation from './ReservationComponent';
 import Favorites from './FavoritesComponent';
+import Login from './LoginComponent';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -58,6 +59,30 @@ const drawerNavigator = () => {
           }
         }}
       >
+        <Drawer.Screen 
+          name="Login" 
+          component={Login} 
+          options={({ navigation }) => ({
+            title: 'Login',
+            drawerIcon: () => (
+              <Icon 
+                name='key'
+                type='font-awesome'
+                size={24}
+              />
+            ),
+
+            headerLeft: () => (
+              <Icon 
+                name='key'
+                type='font-awesome'
+                iconStyle={styles.stackIcon}
+                onPress={() => navigation.toggleDrawer()}   
+              />
+            ),
+          })}
+        />
+
         <Drawer.Screen 
           name="Home" 
           component={Home} 

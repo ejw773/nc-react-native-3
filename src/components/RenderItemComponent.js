@@ -20,7 +20,7 @@ const RenderItem = (props) => {
             <Card>
                 <Card.Title>{props.item.name}</Card.Title>
                 <Card.Image 
-                    source={require(`../${props.item.image}`)}
+                    source={require('../images/chrome-river.jpg')}
                 />
                 <Text style={styles.textStyle}>
                     {props.item.description}
